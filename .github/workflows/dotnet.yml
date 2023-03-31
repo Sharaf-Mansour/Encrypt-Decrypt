@@ -31,8 +31,8 @@ jobs:
       - name: Publish .NET Core Project
         run: dotnet publish EncryptDecrypt.csproj -c Release -o release --nologo 
         
-      - name: Change base-tag in index.html from / to EncryptDecrypt
-        run: sed -i 's/<base href="\/" \/>/<base href="\/EncryptDecrypt\/" \/>/g' release/wwwroot/index.html
+      - name: Change base-tag in index.html from / to Encrypt-Decrypt
+        run: sed -i 's/<base href="\/" \/>/<base href="\/Encrypt-Decrypt\/" \/>/g' release/wwwroot/index.html
     
     # copy index.html to 404.html to serve the same file when a file is not found
       - name: copy index.html to 404.html
