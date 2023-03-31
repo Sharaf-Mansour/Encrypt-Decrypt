@@ -1,0 +1,62 @@
+﻿@page "/"
+
+<div class="container m-5">
+<h1>Encrypt/Decrypt Text</h1>
+
+<div class="form-group m-2">
+    <label for="text-input">Text:</label>
+    <input id="text-input" type="text" class="form-control" @bind="@Text" />
+</div>
+
+    <div class="form-group m-2">
+    <label for="key-input">Key:</label>
+    <input id="key-input" type="password" class="form-control" @bind="@Key" />
+</div>
+
+    <div class="m-2">
+        <button class="btn btn-outline-primary m-2" @onclick="Encrypt">Encrypt</button>
+        <button class="btn btn-outline-secondary m-2" @onclick="Decrypt">Decrypt</button>
+</div>
+
+    <div class="form-group m-2">
+    <label for="output-text">Output:</label>
+    <textarea id="output-text" readonly class="form-control">@OutputText</textarea>
+</div>
+<footer>
+    <p>App built by Sharaf El Dean Mohamed, Mostafa Sabry, Ibrahim Hassan, and Mohamed Sharaf El-Deen</p>
+</footer>
+</div>
+@code {
+    private string Text { get; set; } = "";
+    private string Key { get; set; } = "";
+    private string OutputText { get; set; } = "";
+
+    private void Encrypt()
+    {
+        OutputText = EncryptionHelper.Encrypt(Text, Key);
+    }
+
+    private void Decrypt()
+    {
+        OutputText = EncryptionHelper.Decrypt(Text, Key);
+    }
+    public static class EncryptionHelper
+    {
+        public static string Encrypt(string input, string key)
+        {
+            string result = "";
+            for (int i = 0; i < input.Length; i++)
+            {
+                int charCode = (int)input[i] ^ (int)key[i % key.Length];
+                result += (char)charCode;
+            }
+            return result;
+        }
+
+        public static string Decrypt(string input, string key)
+        {
+            return Encrypt(input, key);
+        }
+    }
+
+}
